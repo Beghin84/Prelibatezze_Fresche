@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Le Cacciotterie Deliziose di Beghin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep:  #1a3a5c;
+    --blue-mid:   #1e5799;
+    --blue-bright:#2980d4;
+    --blue-light: #5ba4e0;
+    --blue-pale:  #e8f2fc;
+    --blue-ultra: #f0f7ff;
+    --sky:        #dbeeff;
+    --gold:       #f0b429;
+    --gold-pale:  #fff8e7;
+    --amber:      #c47a0a;
+    --amber-pale: #fef4e4;
+    --red-soft:   #c0392b;
+    --bg:         #f0f7ff;
+    --surface:    #ffffff;
+    --border:     #c0d8f0;
+    --text:       #0f2540;
+    --text-mid:   #2a4a6e;
+    --text-soft:  #5a7fa0;
+    --shadow:     rgba(30,87,153,0.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:178px;font-size:17px}
+
+  /* ── HEADER ── */
+  header{
+    background:linear-gradient(145deg,#0d2a4a 0%,#1a3a6e 45%,#1e5799 100%);
+    color:#fff;padding:0 0 0;text-align:center;position:relative;overflow:hidden;
+  }
+  .header-bg-deco{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(91,164,224,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 20%, rgba(240,180,41,0.12) 0%, transparent 45%);
+  }
+  /* wavy bottom */
+  .header-inner{position:relative;padding:30px 20px 0;}
+  .header-wave{display:block;width:100%;margin-bottom:-2px;}
+
+  .logo-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;position:relative}
+
+  /* ── MODERN COW LOGO ── */
+  .cow-badge{
+    width:96px;height:96px;
+    background:rgba(255,255,255,0.12);
+    border:2.5px solid rgba(255,255,255,0.25);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    backdrop-filter:blur(4px);
+    box-shadow:0 8px 32px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .cow-svg{width:62px;height:62px;}
+
+  .logo-title{
+    font-family:'Playfair Display',serif;
+    line-height:1.15;
+    text-align:center;
+  }
+  .logo-title .le{font-size:1rem;font-weight:400;opacity:.8;display:block;letter-spacing:.1em;text-transform:uppercase;}
+  .logo-title .main{font-size:1.8rem;font-weight:700;display:block;line-height:1.1;}
+  .logo-title .main em{font-style:italic;color:var(--gold);}
+  .logo-title .di{font-size:1rem;font-weight:400;color:var(--gold);display:block;opacity:.9;margin-top:2px;}
+  .logo-tagline{
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    opacity:.5;font-weight:700;margin-top:2px;
+  }
+
+  /* ── CONTAINER ── */
+  .container{max-width:600px;margin:0 auto;padding:18px 14px;}
+
+  /* ── SECTION ── */
+  .section{margin-bottom:28px;}
+  .section-title{
+    font-family:'Playfair Display',serif;font-size:1.18rem;
+    color:var(--blue-mid);
+    display:flex;align-items:center;gap:9px;
+    padding:10px 16px;
+    background:var(--surface);
+    border-radius:14px;margin-bottom:10px;font-weight:700;
+    border:1.5px solid var(--border);
+    box-shadow:0 2px 8px var(--shadow);
+    border-left:5px solid var(--blue-bright);
+  }
+
+  /* ── PRODUCT CARD ── */
+  .product-card{
+    background:var(--surface);border:1.5px solid var(--border);
+    border-radius:16px;padding:14px 14px 14px 16px;margin-bottom:9px;
+    display:flex;align-items:center;gap:10px;
+    box-shadow:0 2px 8px var(--shadow);
+    transition:border-color .2s,background .2s,box-shadow .2s,transform .1s;
+    position:relative;
+  }
+  .product-card:active{transform:scale(.99);}
+  .product-card.has-qty{
+    border-color:var(--blue-bright);
+    background:var(--blue-ultra);
+    box-shadow:0 4px 16px rgba(41,128,212,0.18);
+  }
+  .product-card.has-qty::before{
+    content:'';position:absolute;left:0;top:0;bottom:0;width:5px;
+    background:linear-gradient(180deg,var(--blue-bright),var(--blue-light));
+    border-radius:16px 0 0 16px;
+  }
+
+  .product-info{flex:1;min-width:0;}
+  .product-name{font-size:1rem;font-weight:700;color:var(--text);line-height:1.3;}
+  .product-detail{font-size:.82rem;color:var(--text-soft);margin-top:3px;font-weight:600;}
+  .product-price{
+    font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
+    color:var(--blue-mid);white-space:nowrap;text-align:right;min-width:66px;line-height:1.3;
+  }
+  .product-price small{display:block;font-family:'Nunito',sans-serif;font-size:.69rem;color:var(--text-soft);font-weight:600;}
+
+  /* ── QTY ── */
+  .qty-control{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .qty-btn{
+    width:38px;height:38px;border-radius:50%;
+    border:2.5px solid var(--blue-bright);background:transparent;
+    font-size:1.35rem;font-weight:900;color:var(--blue-bright);
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    line-height:1;transition:all .15s;user-select:none;padding:0;
+  }
+  .qty-btn:active{transform:scale(.84);}
+  .qty-btn.plus{background:linear-gradient(135deg,var(--blue-bright),var(--blue-mid));color:#fff;border-color:transparent;box-shadow:0 3px 10px rgba(41,128,212,0.35);}
+  .qty-btn.plus:hover{background:linear-gradient(135deg,var(--blue-light),var(--blue-bright));}
+  .qty-btn.minus:hover{background:#fdecea;border-color:var(--red-soft);color:var(--red-soft);}
+  .qty-display{font-size:1.25rem;font-weight:900;min-width:26px;text-align:center;color:var(--text);}
+  .has-qty .qty-display{color:var(--blue-bright);}
+
+  /* ── PECORINO NOTE ── */
+  .pec-note{
+    font-size:.82rem;color:var(--amber);background:var(--amber-pale);
+    border:1px solid #f5d08a;border-radius:12px;
+    padding:11px 14px;margin-bottom:10px;font-weight:700;
+    display:flex;align-items:flex-start;gap:8px;line-height:1.5;
+  }
+
+  /* ── NOTE ── */
+  .note-section{margin-bottom:24px;}
+  .note-label{font-size:.82rem;font-weight:800;color:var(--text-mid);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px;}
+  textarea{
+    width:100%;border:1.5px solid var(--border);border-radius:14px;
+    padding:13px 14px;font-family:'Nunito',sans-serif;font-size:.97rem;
+    color:var(--text);background:var(--surface);resize:vertical;min-height:72px;
+    outline:none;transition:border-color .2s;font-weight:600;
+  }
+  textarea:focus{border-color:var(--blue-bright);}
+
+  /* ── STICKY BAR ── */
+  .sticky-bar{
+    position:fixed;bottom:0;left:0;right:0;
+    background:var(--surface);border-top:2px solid var(--border);
+    padding:12px 16px 18px;display:flex;flex-direction:column;gap:10px;
+    box-shadow:0 -6px 28px rgba(0,0,0,.12);z-index:100;
+  }
+  @media(min-width:620px){.sticky-bar{max-width:600px;left:50%;transform:translateX(-50%);right:auto;}}
+
+  .totale-row{
+    display:flex;justify-content:space-between;align-items:center;
+    background:linear-gradient(135deg,var(--blue-ultra),var(--sky));
+    border-radius:14px;padding:12px 16px;
+    border:1.5px solid var(--border);
+  }
+  .totale-left .lbl{font-size:.76rem;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:.1em;}
+  .totale-left .items{font-size:.9rem;font-weight:700;color:var(--text-mid);margin-top:2px;}
+  .totale-value{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--blue-mid);}
+
+  .btn-row{display:flex;gap:9px;}
+  .btn{
+    flex:1;padding:15px 10px;border:none;border-radius:14px;
+    font-family:'Nunito',sans-serif;font-size:.96rem;font-weight:800;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;
+    transition:all .15s;
+  }
+  .btn:active{transform:scale(.96);}
+  .btn-copy{background:var(--blue-pale);color:var(--blue-mid);border:2px solid var(--border);}
+  .btn-copy:hover{background:var(--sky);}
+  .btn-wa{background:linear-gradient(135deg,#25d366,#1aad52);color:#fff;box-shadow:0 4px 14px rgba(37,211,102,.3);}
+  .btn-wa:hover{background:linear-gradient(135deg,#2de873,#25d366);}
+  .btn-reset{flex:0 0 52px;background:#fff;color:var(--text-soft);border:2px solid var(--border);font-size:1.2rem;padding:15px 10px;}
+  .btn-reset:hover{background:#fdecea;border-color:#f5c6c2;color:var(--red-soft);}
+
+  /* ── TOAST ── */
+  .toast{
+    position:fixed;top:20px;left:50%;
+    transform:translateX(-50%) translateY(-80px);
+    background:linear-gradient(135deg,var(--blue-mid),var(--blue-bright));
+    color:#fff;padding:11px 26px;border-radius:30px;
+    font-size:.95rem;font-weight:700;z-index:999;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+    white-space:nowrap;pointer-events:none;
+    box-shadow:0 4px 20px rgba(30,87,153,.3);
+  }
+  .toast.show{transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-bg-deco"></div>
+  <div class="header-inner">
+    <div class="logo-wrap">
+
+      <!-- Modern minimal cow badge -->
+      <div class="cow-badge">
+        <svg class="cow-svg" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- ears -->
+          <ellipse cx="14" cy="26" rx="6" ry="8" fill="#fff" opacity=".9"/>
+          <ellipse cx="14" cy="26" rx="3.5" ry="5" fill="#f9b3c8" opacity=".7"/>
+          <ellipse cx="48" cy="26" rx="6" ry="8" fill="#fff" opacity=".9"/>
+          <ellipse cx="48" cy="26" rx="3.5" ry="5" fill="#f9b3c8" opacity=".7"/>
+          <!-- head -->
+          <ellipse cx="31" cy="30" rx="18" ry="17" fill="#fff"/>
+          <!-- spots (classic cow) -->
+          <ellipse cx="24" cy="24" rx="6" ry="5" fill="#1e5799" opacity=".18"/>
+          <ellipse cx="38" cy="20" rx="4" ry="3.5" fill="#1e5799" opacity=".14"/>
+          <ellipse cx="36" cy="33" rx="3" ry="2.5" fill="#1e5799" opacity=".12"/>
+          <!-- snout -->
+          <ellipse cx="31" cy="38" rx="9" ry="6.5" fill="#f7c8d8"/>
+          <!-- nostrils -->
+          <ellipse cx="27.5" cy="38.5" rx="2" ry="1.5" fill="#d47090"/>
+          <ellipse cx="34.5" cy="38.5" rx="2" ry="1.5" fill="#d47090"/>
+          <!-- eyes -->
+          <circle cx="23" cy="27" r="3.5" fill="#1a3a5c"/>
+          <circle cx="39" cy="27" r="3.5" fill="#1a3a5c"/>
+          <circle cx="24.2" cy="25.8" r="1.2" fill="#fff"/>
+          <circle cx="40.2" cy="25.8" r="1.2" fill="#fff"/>
+          <!-- horns -->
+          <path d="M16 20 Q13 10 10 8" stroke="#f0b429" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+          <path d="M46 20 Q49 10 52 8" stroke="#f0b429" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+          <!-- happy mouth -->
+          <path d="M26 43 Q31 47 36 43" stroke="#d47090" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="logo-title">
+        <span class="le">Le</span>
+        <span class="main"><em>Cacciotterie</em> Deliziose</span>
+        <span class="di">di Beghin</span>
+      </div>
+      <div class="logo-tagline">Prodotti freschi selezionati</div>
+    </div>
+  </div>
+
+  <!-- wave divider -->
+  <svg class="header-wave" viewBox="0 0 600 32" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 C150,32 450,0 600,20 L600,32 L0,32 Z" fill="#f0f7ff"/>
+  </svg>
+</header>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-title">🐃 Bufala</div>
+    <div class="product-card" data-id="buf1" data-price="3.50">
+      <div class="product-info">
+        <div class="product-name">Bufala busta 250g</div>
+        <div class="product-detail">2 pz × 125g</div>
+      </div>
+      <div class="product-price">€ 3,50<small>a busta</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="buf2" data-price="3.50">
+      <div class="product-info">
+        <div class="product-name">Bufala busta 250g</div>
+        <div class="product-detail">5 pz × 50g</div>
+      </div>
+      <div class="product-price">€ 3,50<small>a busta</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🥛 Stracciatella</div>
+    <div class="product-card" data-id="str1" data-price="10">
+      <div class="product-info">
+        <div class="product-name">Stracciatella conf. 1 kg</div>
+      </div>
+      <div class="product-price">€ 10,00<small>a conf.</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="str2" data-price="2.50">
+      <div class="product-info">
+        <div class="product-name">Stracciatella 250g</div>
+      </div>
+      <div class="product-price">€ 2,50<small>a vaschetta</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🧀 Burrata</div>
+    <div class="product-card" data-id="burr1" data-price="10">
+      <div class="product-info">
+        <div class="product-name">Burrata conf. 1 kg</div>
+        <div class="product-detail">10 pz × 100g</div>
+      </div>
+      <div class="product-price">€ 10,00<small>a conf.</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="burr2" data-price="2.50">
+      <div class="product-info">
+        <div class="product-name">Burrata 250g</div>
+        <div class="product-detail">2 pz × 125g</div>
+      </div>
+      <div class="product-price">€ 2,50<small>a vaschetta</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="burr3" data-price="10">
+      <div class="product-info">
+        <div class="product-name">Burrata in foglia 1 kg</div>
+        <div class="product-detail">3 pz × 330g</div>
+      </div>
+      <div class="product-price">€ 10,00<small>a conf.</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">⚪ Mozzarella</div>
+    <div class="product-card" data-id="moz1" data-price="8">
+      <div class="product-info">
+        <div class="product-name">Fior di latte conf. 1 kg</div>
+        <div class="product-detail">10 pz × 100g</div>
+      </div>
+      <div class="product-price">€ 8,00<small>a conf.</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="moz2" data-price="9">
+      <div class="product-info">
+        <div class="product-name">Ciliegine fior di latte 1 kg</div>
+        <div class="product-detail">100 pz × 10g</div>
+      </div>
+      <div class="product-price">€ 9,00<small>a conf.</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="moz3" data-price="10">
+      <div class="product-info">
+        <div class="product-name">Nodino conf. 1 kg</div>
+        <div class="product-detail">8 pz × 125g</div>
+      </div>
+      <div class="product-price">€ 10,00<small>a conf.</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="moz4" data-price="3">
+      <div class="product-info">
+        <div class="product-name">Nodino 250g</div>
+        <div class="product-detail">5 pz × 50g</div>
+      </div>
+      <div class="product-price">€ 3,00<small>a busta</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🐑 Pecorino</div>
+    <div class="pec-note">
+      <span>⚠️</span>
+      <span>I prezzi sono <strong>stime</strong> sul peso medio della forma. Il totale definitivo potrà variare leggermente in base al peso effettivo.</span>
+    </div>
+    <div class="product-card" data-id="pec1" data-price="20.40">
+      <div class="product-info">
+        <div class="product-name">Pecorino semistagionato</div>
+        <div class="product-detail">Forma 1–1,4 kg · € 17/kg · media ~1,2 kg</div>
+      </div>
+      <div class="product-price">≈ € 20,40<small>a forma</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="pec2" data-price="19.20">
+      <div class="product-info">
+        <div class="product-name">Pecorino fresco</div>
+        <div class="product-detail">Forma 1–1,4 kg · € 16/kg · media ~1,2 kg</div>
+      </div>
+      <div class="product-price">≈ € 19,20<small>a forma</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="pec3" data-price="22.50">
+      <div class="product-info">
+        <div class="product-name">Pecorino Grotta delle Fate</div>
+        <div class="product-detail">Forma 1–1,5 kg · € 18/kg · media ~1,25 kg</div>
+      </div>
+      <div class="product-price">≈ € 22,50<small>a forma</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🧺 Altri prodotti</div>
+    <div class="product-card" data-id="tom1" data-price="11">
+      <div class="product-info">
+        <div class="product-name">Tomino conf. ~1 kg</div>
+        <div class="product-detail">12 pz circa</div>
+      </div>
+      <div class="product-price">€ 11,00<small>a conf.</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="ton1" data-price="8">
+      <div class="product-info">
+        <div class="product-name">Tonno Ghezzi busta 1 kg</div>
+      </div>
+      <div class="product-price">€ 8,00<small>a busta</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="stra1" data-price="2.50">
+      <div class="product-info">
+        <div class="product-name">Stracchino conf. 250g</div>
+      </div>
+      <div class="product-price">€ 2,50<small>a conf.</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="masc1" data-price="4">
+      <div class="product-info">
+        <div class="product-name">Mascarpone 500g</div>
+      </div>
+      <div class="product-price">€ 4,00<small>a vaschetta</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="yog1" data-price="5.50">
+      <div class="product-info">
+        <div class="product-name">Yogurt greco 1 kg</div>
+      </div>
+      <div class="product-price">€ 5,50<small>a vaschetta</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+    <div class="product-card" data-id="bur1" data-price="2">
+      <div class="product-info">
+        <div class="product-name">Burro 250g</div>
+      </div>
+      <div class="product-price">€ 2,00<small>a panetto</small></div>
+      <div class="qty-control">
+        <button class="qty-btn minus" onclick="chg(this,-1)">−</button>
+        <span class="qty-display">0</span>
+        <button class="qty-btn plus" onclick="chg(this,1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-section">
+    <div class="note-label">📝 Note aggiuntive</div>
+    <textarea id="noteText" placeholder="Es: consegna giovedì mattina, prodotti senza lattosio…"></textarea>
+  </div>
+
+</div>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar">
+  <div class="totale-row">
+    <div class="totale-left">
+      <div class="lbl">Totale stimato</div>
+      <div class="items" id="itemCount">Nessun prodotto selezionato</div>
+    </div>
+    <div class="totale-value" id="totaleDisplay">€ 0,00</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-copy" onclick="copyOrder()">📋 Copia</button>
+    <button class="btn btn-wa" onclick="sendWhatsApp()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.558 4.122 1.531 5.858L.057 23.5l5.797-1.522A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.028-1.38l-.36-.215-3.44.904.919-3.353-.235-.374A9.818 9.818 0 0112 2.182c5.423 0 9.818 4.395 9.818 9.818 0 5.424-4.395 9.818-9.818 9.818z"/></svg>
+      Invia ordine
+    </button>
+    <button class="btn btn-reset" onclick="resetAll()" title="Azzera tutto">🗑</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const WA='393409424989';
+  const PEC=['pec1','pec2','pec3'];
+  const LABELS={
+    buf1:'Bufala busta 250g (2×125g)',buf2:'Bufala busta 250g (5×50g)',
+    str1:'Stracciatella conf. 1kg',str2:'Stracciatella 250g',
+    burr1:'Burrata conf. 1kg (10×100g)',burr2:'Burrata 250g (2×125g)',burr3:'Burrata in foglia 1kg',
+    moz1:'Mozzarella fior di latte 1kg',moz2:'Ciliegine fior di latte 1kg',
+    moz3:'Nodino conf. 1kg',moz4:'Nodino 250g',
+    pec1:'Pecorino semistagionato forma ~1,2kg (€17/kg)',
+    pec2:'Pecorino fresco forma ~1,2kg (€16/kg)',
+    pec3:'Pecorino Grotta delle Fate forma ~1,25kg (€18/kg)',
+    tom1:'Tomino conf. ~1kg',ton1:'Tonno Ghezzi 1kg',
+    stra1:'Stracchino 250g',masc1:'Mascarpone 500g',
+    yog1:'Yogurt greco 1kg',bur1:'Burro 250g'
+  };
+
+  function chg(btn,delta){
+    const card=btn.closest('.product-card');
+    const disp=card.querySelector('.qty-display');
+    let q=parseInt(disp.textContent)+delta;
+    if(q<0)q=0;
+    disp.textContent=q;
+    card.classList.toggle('has-qty',q>0);
+    updateTotal();
+  }
+
+  function updateTotal(){
+    let total=0,count=0,hasPec=false;
+    document.querySelectorAll('.product-card').forEach(c=>{
+      const q=parseInt(c.querySelector('.qty-display').textContent);
+      if(q>0){count+=q;total+=parseFloat(c.dataset.price)*q;if(PEC.includes(c.dataset.id))hasPec=true;}
+    });
+    document.getElementById('totaleDisplay').textContent='€ '+total.toFixed(2).replace('.',',');
+    let lbl=count===0?'Nessun prodotto selezionato':count+(count===1?' articolo':' articoli');
+    if(hasPec)lbl+=' · importo pecorini stimato';
+    document.getElementById('itemCount').textContent=lbl;
+  }
+
+  function buildText(){
+    const oggi=new Date().toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'});
+    const lines=['🐄 *Le Cacciotterie Deliziose di Beghin*','📅 Ordine del '+oggi,'────────────────────'];
+    let total=0,hasItems=false,hasPec=false;
+    document.querySelectorAll('.product-card').forEach(c=>{
+      const q=parseInt(c.querySelector('.qty-display').textContent);
+      if(q===0)return;
+      hasItems=true;
+      const id=c.dataset.id,price=parseFloat(c.dataset.price),isPec=PEC.includes(id);
+      const label=LABELS[id]||id,sub=(price*q).toFixed(2).replace('.',',');
+      total+=price*q;
+      if(isPec){hasPec=true;lines.push('▪ '+label+' — '+q+(q>1?' forme':' forma')+' ≈ € '+sub+' (stima)');}
+      else{lines.push('▪ '+label+' — '+q+' pz = € '+sub);}
+    });
+    if(!hasItems)return null;
+    lines.push('────────────────────');
+    lines.push('💰 *Totale stimato: € '+total.toFixed(2).replace('.',',')+'*');
+    if(hasPec)lines.push('⚠️ Pecorini pesati a forma: prezzo finale potrebbe variare leggermente.');
+    const nota=document.getElementById('noteText').value.trim();
+    if(nota){lines.push('');lines.push('📝 Note: '+nota);}
+    lines.push('');lines.push('Grazie! 🙏');
+    return lines.join('\n');
+  }
+
+  function copyOrder(){
+    const txt=buildText();
+    if(!txt){showToast('⚠️ Aggiungi almeno un prodotto!');return;}
+    navigator.clipboard.writeText(txt).then(()=>showToast('✓ Copiato negli appunti!')).catch(()=>{fallback(txt);showToast('✓ Copiato!');});
+  }
+  function fallback(txt){const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
+  function sendWhatsApp(){const txt=buildText();if(!txt){showToast('⚠️ Aggiungi almeno un prodotto!');return;}window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(txt),'_blank');}
+  function resetAll(){if(!confirm("Azzerare tutto l'ordine?"))return;document.querySelectorAll('.qty-display').forEach(d=>d.textContent='0');document.querySelectorAll('.product-card').forEach(c=>c.classList.remove('has-qty'));document.getElementById('noteText').value='';updateTotal();}
+  function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+</script>
+</body>
+</html>
