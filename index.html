@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Le Cacciotterie Deliziose di Beghin</title>
+<title>Le Caciotterie Deliziose di Beghin</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -244,7 +244,7 @@
 
       <div class="logo-title">
         <span class="le">Le</span>
-        <span class="main"><em>Cacciotterie</em> Deliziose</span>
+        <span class="main"><em>Caciotterie</em> Deliziose</span>
         <span class="di">di Beghin</span>
       </div>
       <div class="logo-tagline">Prodotti freschi selezionati</div>
@@ -589,7 +589,7 @@
 
   function buildText(){
     const oggi=new Date().toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'});
-    const lines=['🐄 *Le Cacciotterie Deliziose di Beghin*','📅 Ordine del '+oggi,'────────────────────'];
+    const lines=['🐄 *Le Caciotterie Deliziose di Beghin*','📅 Ordine del '+oggi,'────────────────────'];
     let total=0,hasItems=false,hasPec=false;
     document.querySelectorAll('.product-card').forEach(c=>{
       const q=parseInt(c.querySelector('.qty-display').textContent);
